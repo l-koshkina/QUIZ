@@ -1,0 +1,63 @@
+.test-pre-title {
+    font-size: 20px;
+    line-height: 24px;
+    color: #DCDCF3;
+    margin-top: 20px;
+}
+
+.test-pre-title span {
+    color: #6933DC;
+    margin-left: 15px;
+}
+
+.test-pre-title img {
+    margin-left: 15px;
+}
+
+.correct-title {
+    font-family: "Museo Sans Cyrl Bold", sans-serif;
+    font-size: 54px;
+    line-height: 65px;
+    margin-top: 60px;
+    margin-bottom: 10px;
+}
+
+.correct-title span {
+    color: #6933DC;
+}
+
+.student-name {
+    font-size: 20px;
+    line-height: 24px;
+    color: #333333;
+}
+
+.student-name span {
+    color: #6933DC;
+}
+
+.test-question-title {
+    margin-top: 60px;
+}
+
+.return-to-result {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 60px;
+}
+
+.correct {
+    color: #5FDC33;
+}
+
+.correct input[type="radio"] {
+    border: 5px solid #5FDC33;
+}
+
+.wrong {
+    color: #DC3333;
+}
+
+.wrong input[type="radio"] {
+    border: 5px solid #DC3333;
+}
