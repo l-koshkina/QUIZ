@@ -12,8 +12,7 @@
         userAnswers: [],
         init() {
             checkUserData();
-            const url = new URL(location.href);
-            const testId = url.searchParams.get('id');
+            const testId = sessionStorage.getItem('quizId');
             if (testId) {
                 const xhr = new XMLHttpRequest();
                 xhr.open('GET', 'https://testologia.ru/get-quiz?id=' + testId, false);
@@ -116,15 +115,19 @@
 
             if (chosenOption && chosenOption.chosenAnswerId) {
                 this.nextButtonElement.removeAttribute('disabled');
+                this.passButtonElement.classList.add('disabled');
             } else {
                 this.nextButtonElement.setAttribute('disabled', 'disabled');
+                this.passButtonElement.classList.remove('disabled');
             }
 
 
             if (this.currentQuestionIndex === this.quiz.questions.length) {
                 this.nextButtonElement.innerText = 'Завершить';
+                this.passButtonElement.innerHTML = '';
             } else {
                 this.nextButtonElement.innerText = 'Далее';
+                this.passButtonElement.innerHTML = 'Пропустить вопрос <img src="images/small-arrow.png" alt="Стрелка">';
             }
             if (this.currentQuestionIndex > 1) {
                 this.prevButtonElement.removeAttribute('disabled');
@@ -134,6 +137,8 @@
         },
         chooseAnswer() {
             this.nextButtonElement.removeAttribute('disabled');
+            this.passButtonElement.classList.add('disabled');
+
         },
         move(action) {
             const activeQuestion = this.quiz.questions[this.currentQuestionIndex - 1];
@@ -144,6 +149,7 @@
             let chosenAnswerId = null;
             if (chosenAnswer && chosenAnswer.value) {
                 chosenAnswerId = Number(chosenAnswer.value);
+                // this.passButtonElement.classList.add('disabled');
             }
 
             const existingResult = this.userResult.find(item => {
@@ -162,8 +168,13 @@
 
             if (action === "next" || action === "pass") {
                 this.currentQuestionIndex++;
+                this.passButtonElement.classList.remove('disabled');
             } else {
                 this.currentQuestionIndex--;
+                if(chosenAnswer && chosenAnswer.value) {
+                    this.passButtonElement.classList.add('disabled');
+                }
+
             }
 
             if (this.currentQuestionIndex > this.quiz.questions.length) {
@@ -185,11 +196,10 @@
             this.showQuestion();
         },
         complete() {
-            const url = new URL(location.href);
-            const id = url.searchParams.get('id');
-            const name = url.searchParams.get('name');
-            const lastName = url.searchParams.get('lastName');
-            const email = url.searchParams.get('email');
+            const id = sessionStorage.getItem('quizId')
+            const name = sessionStorage.getItem('name');
+            const lastName = sessionStorage.getItem('lastName');
+            const email = sessionStorage.getItem('email');
 
             const xhr = new XMLHttpRequest();
             xhr.open('POST', 'https://testologia.ru/pass-quiz?id=' + id, false)
@@ -209,13 +219,15 @@
                     location.href = 'index.html';
                 }
                 if (result) {
-                    location.href = 'result.html?name=' + name + '&lastName=' + lastName + '&email=' + email + '&id=' + id + '&score=' + result.score + '&total=' +
-                        result.total + '&quizName=' + this.quiz.name + '&userAnswers=' + this.userAnswers;
+                    location.href = 'result.html'
+                    sessionStorage.setItem('score', result.score);
+                    sessionStorage.setItem('total', result.total);
                 }
             } else {
                 location.href = 'index.html';
             }
 
+            sessionStorage.setItem('userAnswers', this.userAnswers);
         }
     }
 

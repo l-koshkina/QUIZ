@@ -1,23 +1,21 @@
 (function () {
     const Result = {
         init() {
-            const url = new URL(location.href);
-            const id = url.searchParams.get('id');
-            const name = url.searchParams.get('name');
-            const lastName = url.searchParams.get('lastName');
-            const email = url.searchParams.get('email');
-            const userAnswers = url.searchParams.get('userAnswers');
-            const quizName = url.searchParams.get('quizName');
+            // const url = new URL(location.href);
+            // const id = sessionStorage.getItem('quizId');
+            // const name = sessionStorage.getItem('name');
+            // const lastName = sessionStorage.getItem('lastName');
+            // const email = sessionStorage.getItem('email');
+            // const userAnswers = sessionStorage.getItem('userAnswers');
+            // const quizName = sessionStorage.getItem('quizName');
+            //
+            // const score = sessionStorage.getItem('score');
+            // const total = sessionStorage.getItem('total');
 
-            const score = url.searchParams.get('score');
-            const total = url.searchParams.get('total');
 
-
-            console.log(userAnswers);
-            document.getElementById('result-score').innerText = score + '/' + total;
+            document.getElementById('result-score').innerText = sessionStorage.getItem('score') + '/' + sessionStorage.getItem('total');
             document.getElementById('correct-answers').onclick = function() {
-                location.href = 'correct.html?name=' + name + '&lastName=' + lastName + '&email=' + email + '&id=' + id + '&quizName=' + quizName + '&userAnswers=' + userAnswers +
-                '&score=' + score + '&total=' + total;
+                location.href = 'correct.html';
             }
         }
     }

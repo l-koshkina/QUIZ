@@ -144,3 +144,16 @@ input[type="radio"]:checked::before {
     min-height: 344px;
 }
 
+#pass.disabled {
+    pointer-events: none;
+    color: #DCDCF3;
+}
+
+#pass.disabled img{
+    filter: opacity(20%);
+}
+
+.pass-question:has(.disabled) {
+    cursor: not-allowed;
+}
+

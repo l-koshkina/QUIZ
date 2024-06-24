@@ -53,8 +53,9 @@
         },
         chooseQuiz(element) {
             const dataId = element.getAttribute('data-id');
+            sessionStorage.setItem('quizId', dataId)
             if (dataId) {
-                location.href = 'test.html' + location.search + '&id=' + dataId;
+                location.href = 'test.html?' + location.search + '&id=' + sessionStorage.getItem('quizId');
             }
         },
 

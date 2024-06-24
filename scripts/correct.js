@@ -6,16 +6,12 @@
         questionTitleElement: null,
         init() {
             checkUserData();
-            const url = new URL(location.href);
-            const name = url.searchParams.get('name');
-            const lastName = url.searchParams.get('lastName');
-            const email = url.searchParams.get('email');
-            const testId = url.searchParams.get('id');
-            const quizName = url.searchParams.get('quizName');
-            const score = url.searchParams.get('score');
-            const total = url.searchParams.get('total');
-
-            const userAnswers = url.searchParams.get('userAnswers');
+            const name = sessionStorage.getItem('name');
+            const lastName = sessionStorage.getItem('lastName');
+            const email = sessionStorage.getItem('email');
+            const testId = sessionStorage.getItem('quizId');
+            const quizName = sessionStorage.getItem('quizName');
+            const userAnswers = sessionStorage.getItem('userAnswers');
 
             this.userAnswersArray = userAnswers ? userAnswers.split(',').map(str => parseInt(str, 10)) : [];
 
@@ -64,8 +60,7 @@
             this.showQuestions();
 
             document.getElementById('to-result').onclick = function () {
-                location.href = 'result.html?name=' + name + '&lastName=' + lastName + '&email=' + email + '&id=' + testId + '&score=' + score + '&total=' +
-                    total + '&quizName=' + quizName + '&userAnswers=' + userAnswers;
+                location.href = 'result.html';
             }
         },
         showQuestions() {
